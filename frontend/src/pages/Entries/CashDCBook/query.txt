@@ -1,0 +1,224 @@
+import React, { useContext, useState } from 'react'
+import contextCreator from '../context/contextCreator'
+import { Link } from 'react-router-dom'
+
+const CreateAccount = () => {
+  const context = useContext(contextCreator)
+  const { searchAccount, createAccount } = context
+
+  const mobileNumberRegex = /^03[0-9]{9}$/
+
+  const search = async () => {
+    setWait('Checking similar account...')
+    let data = await searchAccount(detail.name)
+    setError('')
+    setSuccess('')
+    setWait('')
+    if (data.success) setTitle(data.accounts)
+  }
+
+  const capitalizeWords = (str) => {
+    return str
+      .toLowerCase()
+      .split(' ')
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(' ')
+  }
+
+  const [detail, setDetail] = useState({
+    name: '',
+    mobile: '',
+    address: '',
+    guarranter: 'Self',
+  })
+
+  const [title, setTitle] = useState({})
+  const [wait, setWait] = useState('')
+  const [error, setError] = useState()
+  const [success, setSuccess] = useState('')
+  const [guarranter, setGuarranter] = useState({})
+
+  const onChange = (e) => {
+    if (e.target.name === 'name') {
+      // Capitalize the first letter of each word for Account Title
+      setDetail({ ...detail, [e.target.name]: capitalizeWords(e.target.value) })
+    } else if (e.target.name === 'address') {
+      // Capitalize the first letter of each word for Complete Address
+      setDetail({ ...detail, [e.target.name]: capitalizeWords(e.target.value) })
+    } else {
+      setDetail({ ...detail, [e.target.name]: e.target.value })
+    }
+  }
+
+  const handleClick = async () => {
+    setWait('Analyzing...')
+
+    if (
+      detail.name === '' ||
+      detail.mobile === '' ||
+      detail.address === '' ||
+      detail.guarranter === ''
+    ) {
+      setError('Fill all fields')
+    } else if (!mobileNumberRegex.test(detail.mobile)) {
+      setError('Invalid mobile number format. Please use the format 03XXXXXXXXX')
+    } else {
+      let response = await createAccount(
+        detail.name,
+        detail.mobile,
+        detail.address,
+        detail.guarranter,
+      )
+      if (!response.success) {
+        setError('Another account with this title already exists')
+      } else {
+        setSuccess('Account successfully created')
+        setDetail({
+          name: '',
+          mobile: '',
+          address: '',
+          guarranter: 'Self',
+        })
+      }
+    }
+    setWait('')
+  }
+
+  const searchGuarranter = async () => {
+    setWait('Searching guarranter account...')
+    let data = await searchAccount(detail.guarranter)
+    setError('')
+    setSuccess('')
+    setWait('')
+    if (data.success) setGuarranter(data.accounts)
+  }
+
+  const copyGuarranter = () => {
+    setDetail({ ...detail, guarranter: guarranter.name })
+  }
+
+  return (
+    <div className="mx-2 app-container app-theme-white body-tabs-shadow">
+      <div className="app-container">
+        <div className="h-100 bg-premium-dark">
+          <div className="d-flex h-100 justify-content-center align-items-center">
+            <div className="mx-auto app-login-box col-md-8">
+              <div className="app-logo-inverse mx-auto mb-3"></div>
+              <div className="modal-dialog w-100">
+                <div className="modal-content">
+                  <div className="modal-body">
+                    <h5 className="modal-title">
+                      <h1>
+                        <Link className="btn btn-primary" to="/#/dashboard">
+                          Home
+                        </Link>
+                      </h1>
+                      <h4 className="mt-2">
+                        <div>Welcome,</div>
+                        <span>
+                          It only takes a <span className="text-success">few seconds</span> to
+                          create a new account
+                        </span>
+                      </h4>
+                    </h5>
+                    <div className="divider row"></div>
+                    <div className="form-row">
+                      <div className="col-md-12">
+                        <div className="position-relative form-group">
+                          <p>{wait}</p>
+                          <p>
+                            <span style={{ color: 'red' }}>{error}</span>
+                          </p>
+                          <p style={{ color: 'green' }}>{success}</p>
+                          {title ? title.name : ''}
+                          <input
+                            name="name"
+                            id="name"
+                            placeholder="Account Title..."
+                            type="text"
+                            className="form-control"
+                            value={detail.name}
+                            onChange={onChange}
+                            onKeyUp={search}
+                            autoComplete="off"
+                          />
+                        </div>
+                      </div>
+                      <div className="col-md-12">
+                        <div className="position-relative form-group mt-2">
+                          <input
+                            name="mobile"
+                            id="mobile"
+                            placeholder="Mobile Number (e.g., 03XXXXXXXXX)..."
+                            type="text"
+                            className="form-control"
+                            value={detail.mobile}
+                            onChange={onChange}
+                            autoComplete="off"
+                          />
+                        </div>
+                      </div>
+                      <div className="col-md-12">
+                        <div className="position-relative form-group mt-2">
+                          <input
+                            name="address"
+                            id="address"
+                            placeholder="Complete Address..."
+                            type="text"
+                            className="form-control"
+                            value={detail.address}
+                            onChange={onChange}
+                            autoComplete="off"
+                          />
+                        </div>
+                      </div>
+                      <div className="col-md-12">
+                        <div className="position-relative form-group">
+                          {guarranter ? (
+                            <button onClick={copyGuarranter} className="btn btn-primary mt-2">
+                              {guarranter.name}
+                            </button>
+                          ) : (
+                            ''
+                          )}
+                          <br></br>
+                          Guarranter Title
+                          <input
+                            name="guarranter"
+                            id="guarranter"
+                            placeholder="Guarranter Title..."
+                            type="guarranter"
+                            className="form-control"
+                            value={detail.guarranter}
+                            onChange={onChange}
+                            autoComplete="off"
+                            onKeyUp={searchGuarranter}
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <div className="divider row"></div>
+                  </div>
+                  <div className="modal-footer d-block text-center">
+                    <button
+                      onClick={handleClick}
+                      className="mt-2 btn-wide btn-pill btn-shadow btn-hover-shine btn btn-primary btn-lg"
+                    >
+                      Create Account
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export default CreateAccount
+
+Please make this component design most attractive.
+You can add colors into the background, style fields to look more beautiful and much more
+Please must write full component code

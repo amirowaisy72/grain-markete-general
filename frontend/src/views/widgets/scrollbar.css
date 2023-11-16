@@ -1,0 +1,32 @@
+/* Style the scrollbar in WebKit browsers (Chrome, Safari) */
+::-webkit-scrollbar {
+  width: 8px; /* Width of the scrollbar */
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1; /* Track color */
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888; /* Thumb color */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555; /* Thumb color on hover */
+}
+
+/* Style the scrollbar in Firefox */
+/* Note: Firefox currently supports scrollbar styling via CSS only in Dark Mode */
+/* For light mode, you may need to rely on browser-specific settings */
+/* or use JavaScript-based libraries for cross-browser support */
+/* https://github.com/FremyCompany/css-scrollbar */
+
+/* Optional: Hide scrollbar buttons (arrows) */
+::-webkit-scrollbar-button {
+  display: none;
+}
+
+/* Optional: Disable corner rounding */
+::-webkit-scrollbar-corner {
+  background: transparent;
+}

@@ -1,0 +1,387 @@
+///////////////////
+1- Basic Equation:
+To solve a simple equation like x + 3 = 0, you can directly use the solve command as follows:
+
+x = solve('x + 3')
+
+MATLAB will assume you mean x + 3 = 0 and give you the solution: x = -3.
+
+2- Specify the Variable:
+If you want to be explicit about the variable you're solving for, you can use:
+solve('a*x + 5', 'x')
+
+This tells MATLAB to solve for x, and it will return: x = -5/a.
+
+///////////////////
+Solving quadratic equations in MATLAB is quite straightforward. Here's a summary of how to solve quadratic 
+equations using the solve command and how to work with the results:
+
+1- Quadratic Equation:
+Suppose you have a quadratic equation like x^2 - 6x - 12 = 0, and you want to find its roots. 
+
+s = solve('x^2 - 6*x - 12 = 0')
+
+MATLAB will return the roots as an array, and you can access them as s(1) and s(2).
+
+2- Working with Results:
+You can use the roots just like any other MATLAB variable. For example, you can perform calculations with them:
+
+y = 3 + s(1)
+z = s(1) + s(2)
+
+3- Storing Equations in Variables:
+You can also assign an equation to a variable and then pass that variable to the solve function:
+
+d = 'x^2 + 9*x - 7 = 0';
+solve(d)
+
+MATLAB will correctly provide the roots of the equation.
+
+
+/////////////////
+In MATLAB, you can plot symbolic equations using the ezplot command. Here's a summary of how to plot 
+symbolic equations and how to customize the plot:
+
+1- Creating the Equation:
+First, create a symbolic equation using a string. For example, if you have the equation x^2 - 6*x - 12, 
+you can represent it as follows:
+
+d = 'x^2 - 6*x - 12';
+
+2- Plotting the Equation:
+Use the ezplot command to generate a plot of the equation. The basic usage is as follows:
+
+ezplot(d)
+
+MATLAB will generate the plot with automatically selected values for the domain and range.
+
+3- Customizing the Domain and Range:
+If you want to specify the domain and range for the plot, you can use the following syntax:
+
+ezplot(f, [x1, x2, y1, y2])
+
+For example, to plot the equation for -2 < x < 8, you can use:
+
+ezplot(d, [-2, 8])
+
+4- Handling Equations Without '= 0':
+If you have an equation like x + 3 = 0, make sure not to include the "= 0" part when plotting with ezplot. 
+For example:
+
+ezplot('x + 3')
+
+5- Specifying Both Domain and Range:
+To specify both the domain and range for a plot, you can use the following syntax:
+
+ezplot(f, [x1, x2, y1, y2])
+
+For example, to plot x + 3 = 0 for -4 < x < 4 and -2 < y < 2, you can use:
+
+ezplot('x + 3', [-4, 4, -2, 2])
+
+
+//////////////////////
+EXAMPLE 5-1
+To find the roots of the equation, plot the function, and determine the numerical values of the roots 
+using a simple and basic method,
+
+1- Define the Equation:
+
+eq = 'x^2 - sqrt(2)';
+
+2- Find the Roots:
+Use the solve function to find the roots of the equation:
+
+s = solve(eq);
+
+MATLAB will return the roots in the s variable.
+
+3- Extract Numerical Values of Roots:
+To determine the numerical values of the roots, extract them from the array and convert them to double values:
+
+x = double(s(1));
+y = double(s(2));
+
+The variables x and y now contain the numerical values of the roots.
+
+4- Plot the Function:
+Use the ezplot function to plot the equation:
+
+ezplot(eq);
+title('Plot of x^2 - sqrt(2)');
+xlabel('x');
+ylabel('f(x)');
+
+
+//////////////////////
+EXAMPLE 5-2
+
+To find the roots of the fourth-order equation, and plot the function for 
+−10<x<10 in MATLAB, you can follow these steps:
+
+1- Define the Equation:
+Create a character string to represent the equation:
+
+eq1 = 'x^4 - 5*x^3 + 4*x^2 - 5*x + 6';
+
+2- Solve for the Roots:
+Use the solve function to find the roots of the equation:
+
+s = solve(eq1);
+
+3- Extract and Convert Roots:
+To extract the numerical values of the roots, use the double function:
+
+a = double(s(1));
+b = double(s(2));
+c = double(s(3));
+d = double(s(4));
+
+The variables a, b, c, and d now contain the numerical values of the roots. Note that two of the roots 
+are complex numbers.
+
+4- Plot the Function:
+Use the ezplot function to plot the equation over the specified domain:
+
+ezplot(eq1, [-10, 10]);
+title('Plot of x^4 - 5x^3 + 4x^2 - 5x + 6');
+xlabel('x');
+ylabel('f(x)');
+
+//////////////////////
+EXAMPLE 5-3
+
+To find the roots of the equation and plot the function for -8 < x < 8 and -8 < y < 8 with a grid in MATLAB, 
+you can follow these steps:
+
+1- Define the Equation:
+Create a character string to represent the equation:
+f = 'x^3 + 3*x^2 - 2*x - 6';
+
+2- Solve for the Roots:
+Use the solve function to find the roots of the equation:
+
+s = solve(f);
+
+3- Extract Roots:
+The roots are given by MATLAB as numerical values. No further conversion is needed:
+
+root1 = s(1);
+root2 = s(2);
+root3 = s(3);
+
+4- Plot the Function with Grid:
+Use the ezplot function to generate a plot of the function. Specify the domain -8 < x < 8 and -8 < y < 8 
+and enable the grid:
+
+ezplot(f, [-8, 8, -8, 8]);
+grid on;
+
+
+///////////////////////
+Solving systems of equations in MATLAB using the solve command is quite versatile. Let's go through the 
+process of solving a system of equations step by step. Here's an example using the system of equations:
+
+5x+4y = 3
+x-6y = 2
+
+1- Define the System of Equations:
+Create character strings to represent the system of equations. Each equation should be enclosed in single 
+quotes and separated by a comma.
+
+eq1 = '5*x + 4*y = 3';
+eq2 = 'x - 6*y = 2';
+
+2- Solve the System:
+Use the solve function to find solutions for the variables in the system of equations. 
+Pass the equations as a comma-delimited list.
+
+s = solve(eq1, eq2);
+
+3- Extract Variable Values:
+To obtain the values of the variables that solve the system, use the dot notation to access each variable. 
+For example, to get the value of x, you can use:
+
+x = s.x;
+
+Similarly, you can extract the values of other variables, such as y.
+
+y = s.y;
+
+
+///////////////////////
+Expanding and Collecting Equations
+
+In MATLAB, you can perform algebraic tasks such as expanding and collecting equations, factoring, and 
+simplifying expressions with symbolic variables. Here are some examples of how to use these commands:
+
+Expanding Equations:
+To expand an equation, use the expand command. For example, to expand (x-1)(x+4), you can do the following:
+
+expand((x-1)*(x+4))
+
+This will give you the expanded expression:
+
+ans = x^2 + 3*x - 4
+
+You can also expand trigonometric expressions like cos(x+y) or sin(x-y).
+
+Collecting Equations:
+The collect command can be used to collect like terms in an expression. For instance, to collect terms in 
+x*(x^2-2), you can use:
+
+collect(x*(x^2-2))
+
+This will collect like terms and simplify the expression:
+
+ans = x^3 - 2*x
+
+Factoring Equations:
+o factor equations, use the factor command. For example, to factor x^2-y^2 , you can do:
+
+factor(x^2-y^2)
+
+This will factor the expression as:
+
+ans = (x-y)*(x+y)
+
+You can also factor multiple equations at once using factor([eq1, eq2]).
+
+Simplifying Equations:
+The simplify command simplifies expressions. For instance, to simplify x^4-81 / x^2-9 , use:
+
+simplify((x^4-81)/(x^2-9))
+
+This will simplify the expression to:
+
+ans = x^2 + 9
+
+You can use simplify to obtain trigonometric identities as well, such as simplifying 
+cos(x)^2 - sin(x)^2 to 2cos(x)^2 - 1 
+Remember to declare your symbolic variables using syms before using them in symbolic calculations.
+For example, if you have a variable t, you can declare it as:
+
+syms t
+
+This way, MATLAB will recognize t as a symbolic variable, and you can use it in your symbolic calculations.
+
+
+///////////////////
+Solving with Exponential and Log Functions
+Solving equations involving exponential and logarithmic functions in MATLAB is straightforward. 
+Let's go through an example with a logarithmic equation and equations involving variables as exponents.
+
+Logarithmic Equation Example:
+
+Suppose you want to find a value of x that satisfies the equation:
+
+log10(x) - log10(x-3) = 1
+
+You can represent the equation in MATLAB as follows:
+
+eq = 'log10(x) - log10(x - 3) = 1';
+
+Then, use the solve function to find the solution:
+
+s = solve(eq);
+
+In this case, MATLAB returns a single solution:
+
+s(1)
+
+To convert it to a numerical value:
+
+x_value = double(s(1))
+
+Equations with Exponents:
+Suppose you have a system of equations like:
+
+y = 3^2x
+y = 5^x+1
+
+You can represent this system in MATLAB as:
+
+s = solve('y = 3^(2*x)','y = 5^x + 1');
+
+MATLAB returns symbolic solutions for both x and y:
+
+s.x(1)
+s.x(2)
+s.y(1)
+s.y(2)
+
+To convert these symbolic solutions to numerical values:
+
+x1_value = double(s.x(1));
+x2_value = double(s.x(2));
+y1_value = double(s.y(1));
+y2_value = double(s.y(2));
+
+To check if the solutions make sense, verify that they satisfy the original equations:
+
+3^(2*x1_value) % Should match y1_value
+5^x2_value + 1 % Should match y2_value
+
+Exponential Equation Example:
+For equations involving the exponential function, such as:
+
+exp(x)+x = 0
+
+You can represent it in MATLAB as follows:
+
+eq = 'exp(x) + x';
+s = solve(eq);
+x_value = double(s);
+
+The result, when evaluated numerically, gives you the solution to the equation.
+
+These examples illustrate how to work with equations involving exponential and logarithmic functions in 
+MATLAB, find their solutions, and convert the symbolic results to numerical values.
+
+
+/////////////////////////////
+Series Representations of Functions
+Obtaining the series representation of a function in MATLAB using the taylor function is quite straightforward. 
+You can use this to approximate functions using Taylor series expansions. Here are the steps:
+
+Step 1: Define the Symbolic Variable
+Before using the taylor function, you need to declare the symbolic variable. For example, declare a symbolic 
+variable x:
+
+syms x
+
+Step 2: Obtain the Taylor Series Expansion
+You can obtain the Taylor series expansion of a function by directly calling the taylor function. For instance, 
+to get the Taylor series expansion of sin(x), use:
+
+s = taylor(sin(x))
+
+MATLAB will return the first few terms of the expansion. For example:
+
+s =
+x - 1/6*x^3 + 1/120*x^5
+
+Step 3: Plot the Taylor Series Expansion
+
+You can visualize the Taylor series by using the ezplot function. For the example above, you can plot it with:
+
+ezplot(s)
+
+This will generate a plot of the Taylor series expansion.
+
+Step 4: Customize the Number of Terms
+
+To obtain a more accurate representation of the function using a specific number of terms, you can use the 
+taylor function with the desired number of terms. For example, if you want 20 terms in the Taylor series for 
+sin(x), you can use:
+
+s = taylor(sin(x), 20)
+
+This will give you a more accurate representation with 20 terms.
+
+By adjusting the number of terms, you can control the accuracy of the approximation. Keep in mind that a 
+larger number of terms generally provides a more accurate representation, but it may also increase 
+computational complexity.
+
+The taylor function is a useful tool for approximating functions using Taylor series expansions and 
+visualizing their behavior over a specific domain.

@@ -1,0 +1,376 @@
+TOPIC 1 /////////////////////
+MATLAB plot(independentVar,simpleFunction) and fplot(independentVar,complexFunction) functions
+{ overall means plotting an independent variable over a function. independent variable is a range and function 
+can be any function
+Note: for simple functions like cos(x) we use plot() and for complex functions like exp(-2*t)*sin(t) 
+we use fplot()
+plot() accepts first parameter as range
+fplot() accepts second parameter as range
+ }
+
+example for plot()
+x = 0:0.1:10; % range or independent variable
+y = cos(x); % a function
+plot(x, y); % plotting an independent variable over a function
+
+example for fplot()
+t = [0:0.02:4]; % range or independent variable
+f = exp(-2*t) * sin(t); % a function
+fplot(f, t); % plotting an independent variable over a function
+
+
+but if we change increment like 
+x = 0:1:10;
+
+and plot 
+plot(x, y);
+
+then it will throw following error
+??? Error using ==> plot
+Vector must be the same lengths.
+
+hence yuo cannot directly plot(x, y); after changing the increment. instead, you need to do 
+y = cos(x);
+again for the increment changed and then plot(x, y); . now it will give you answer without error 
+
+TOPIC 2 /////////////////////
+MATLAB xlabel() and ylabel() functions
+
+x = [0:0.01:10];
+y = cos(x);
+plot(x, y), xlabel('this is x axis label'), ylabel('this is y axis label');
+
+TOPIC 3 /////////////////////
+f = exp(-2*t) * sin(t); % a function
+this wrill throw error 
+??? Error using ==> mtimes
+Inner matrix dimensions must agree.
+due to 
+typo in our command multiplying the exponential and trig function
+
+f = exp(-2*t).*sin(t);
+this is the correct way
+
+This time, there is no error and the function plots correctly. Therefore, when
+generating a function, which is formed by the product of two or more other functions,
+be sure to tell MATLAB we’re multiplying two matrices by including a ‘.’ character. 
+
+TOPIC 4 /////////////////////
+MATLAB function Plot(x,y),grid on
+to create plot in grid form 
+
+TOPIC 5 /////////////////////
+Plotting multiple functions on single graph
+In MATLAB, you can plot multiple functions on a single graph by using the `plot()` command with multiple 
+pairs of x and y values. You can also differentiate between the curves by specifying different line styles 
+using character strings. Let's walk through the example you provided:
+
+Suppose you want to plot two functions, `f(t) = e^(-t)` and `g(t) = e^(-2t)`, over the range 0 ≤ t ≤ 5, 
+with `g(t)` displayed as a dashed line. Here's how you can do it:
+
+```matlab
+% Define your range (t)
+t = [0:0.01:5];
+
+% Define the two functions (f and g)
+f = exp(-t);
+g = exp(-2*t);
+
+% Plot both functions, differentiating g with a dashed line
+plot(t, f, t, g, '--');
+```
+
+In this code:
+
+- `t` represents the independent variable (time in this case).
+- `f` and `g` represent the dependent variables for the two functions.
+- `plot(t, f, t, g, '--')` generates the plot of both `f(t)` and `g(t)`. The `--` specifies a dashed line for 
+the curve representing `g(t)`.
+
+As a result, you will get a plot with two curves, where `f(t)` is represented with a solid line, and `g(t)` 
+is represented with a dashed line, as shown in Figure 3-9 of your example.
+
+To specify different line styles in MATLAB, you can use the following character strings in the `plot()` 
+command:
+
+- Solid line: `'-'`
+- Dashed line: `'--'`
+
+You can further customize your plot by specifying colors, markers, and other properties to differentiate 
+between the curves if needed.
+
+TOPIC 6 /////////////////////
+Using legend command in plot() function 
+
+x = [0:0.01:2];
+y = sinh(x);
+z = cosh(x);
+ plot(x,y,x,z,'--'),xlabel('x'),ylabel('Potential'),legend('sinh(x)','cosh(x)')
+
+ description of this command
+ plotting two functions y and z over independent variables x with labels and telling which curve is which
+
+ TOPIC 7 /////////////////////
+ Setting Colors to each curve in a graph
+
+x = [–5:0.01:5];
+y = sinh(x);
+z = cosh(x);
+
+Now we will generate the plot representing y with a red curve and z with a blue curve
+
+ plot(x,y,'r',x,z,'b') % r means red and b means blue
+
+ Another example
+ plot(x,y,'r',x,z,'b--')
+ y with red curve and z with blue dotted(---) curve
+
+Color Specifier
+White w
+Black k
+Blue b
+Red r
+Cyan c
+Green g
+Magenta m
+Yellow y
+
+TOPIC 8 /////////////////////
+Setting Axis Scales
+
+axis ( [xmin xmax ymin ymax] )
+
+lets take an example,
+x = [0:0.01:5];
+y = sin(2*x + 3);
+
+plot(x,y), axis([0 5 –1 1]) % it defines ranges for both axis as follows 
+x-axis from 0 to 5
+y-axis from -1 to 1
+
+
+TOPIC 9 /////////////////////
+Subplots
+
+subplot(m, n, p). Here m and n tell
+MATLAB to generate a plot array with m rows and n columns. Then we use p to tell MATLAB where to put 
+the particular plot we have generated.
+
+Example,
+x = [0:0.01:5];
+y = exp(–1.2*x).*sin(20*x);
+ subplot(1,2,1)
+
+ By passing (1, 2, 1) to subplot, we have told MATLAB that we are going to create an array with 2 panes 
+ and 1 row, and that this particular plot will appear in the first pane
+
+ TOPIC 10 /////////////////////
+ linspace & hold on
+
+ linspace
+
+ x = linspace(0,10); % basically it also behaves like independent variable or range
+ plot(x,cos(x))
+
+ holde on 
+
+ x = linspace(0,10);
+ plot(x,cos(x)),axis([0 2*pi –1 1])
+ hold on
+ plot(x, sin(x)), axis ([0 2*pi –1 1])
+
+ displays both curves on the same plot
+
+ TOPIC 11 /////////////////////
+ Polar and Logarithmic Plots
+
+Polar plots
+ For our first example let’s generate a spiral. The so-called spiral of Archimedes
+is defined by the simple relationship:
+r = a(theta)
+where a is contant, theta behaves like that independent/range variable and r is the function 
+
+lets plot it,
+a = 2;
+theta = [0:pi/90:2*pi];
+r = a*theta;
+
+polar ( theta, r), title('Spiral of Archimedes')
+
+Note: for this, polar is used instead of plot. i mean a polar will be created 
+
+Logarithmic plots (Skipped for now)
+
+
+TOPIC 12 /////////////////////
+Plotting Discrete Data
+
+1. Plotting Discrete Data Points:
+
+% Define the student IDs and test scores
+x = [1:5];
+y = [50, 98, 75, 80, 98];
+
+% Create the plot and customize labels
+plot(x, y, 'o'); % 'o' specifies the markers
+axis([1 5 0 100]); % Adjust the axis limits
+xlabel('Student');
+ylabel('Final Test Score');
+title('Final Exam December 2005');
+
+2. Creating a Two-Dimensional Bar Chart:
+
+% Define the student IDs and test scores
+x = [1:5];
+y = [50, 98, 75, 80, 98];
+
+% Create a bar chart and add labels and title
+bar(x, y);
+xlabel('Student');
+ylabel('Score');
+title('Final Exam');
+
+3. Using a Stem Plot:
+
+% Define t values
+t = 0:0.1:20;
+
+% Define the function
+b = 0.01;
+f = exp(-b * t) .* sin(t / 4);
+
+% Create a stem plot
+stem(t, f);
+xlabel('t');
+ylabel('f(t)');
+title('Spring Response to Force');
+
+TOPIC 13 /////////////////////
+Contour Plots
+
+1. Creating a Basic Contour Plot with Labels:
+
+% Generate a meshgrid for x and y
+[x, y] = meshgrid(-5:0.1:5, -3:0.1:3);
+
+% Define the function
+z = x.^2 + y.^2;
+
+% Create a contour plot
+[C, h] = contour(x, y, z);
+
+% Add labels with set command
+set(h, 'ShowText', 'on', 'TextStep', get(h, 'LevelStep') * 2);
+
+xlabel('x');
+ylabel('y');
+title('Contour Plot: z = x^2 + y^2');
+
+h is a handle to the contour object created by contour().
+set() is a function used to set properties of graphics objects.
+'ShowText' specifies that you want to display text labels on the contour lines.
+'on' means that text labels should be shown.
+'TextStep' specifies the spacing between the labels.
+get(h, 'LevelStep') gets the default spacing between contour labels as determined by MATLAB.
+* 2 is used to double the spacing between the labels to make them less crowded.
+
+3. Generating a Three-Dimensional Contour Plot:
+
+You can create a 3D contour plot using contour3(). Let's use z = cos(x) * sin(y) with 10 contour levels:
+
+% Generate a 3D contour plot
+contour3(x, y, z, 10);
+
+xlabel('x');
+ylabel('y');
+zlabel('z');
+title('3D Contour Plot: z = cos(x) * sin(y)');
+
+4. Enhancing the 3D Contour Plot:
+To make the 3D contour plot more professional, you can use the surface() function to enhance its appearance:
+
+% Create a 3D contour plot
+contour3(x, y, z, 30);
+
+% Enhance the appearance
+surface(x, y, z, 'EdgeColor', [.8 .8 .8], 'FaceColor', 'none');
+grid off;
+view(-15, 20);
+
+xlabel('x');
+ylabel('y');
+zlabel('z');
+title('Enhanced 3D Contour Plot: z = ye^(-x^2 - y^2)');
+
+TOPIC 14 /////////////////////
+Three-Dimensional Plots
+
+In MATLAB, you can create three-dimensional plots to visualize functions of two variables in space. 
+Here are several examples of creating and enhancing 3D plots using MATLAB:
+
+1. Creating a Basic Mesh Plot:
+
+Let's create a basic mesh plot for the function z = cos(x) * sin(y) over the range -2π ≤ x, y ≤ 2π:
+
+% Generate a meshgrid for x and y
+[x, y] = meshgrid(-2 * pi:0.1:2 * pi);
+
+% Define the function
+z = cos(x) .* sin(y);
+
+% Create a mesh plot
+mesh(x, y, z);
+
+xlabel('x');
+ylabel('y');
+zlabel('z');
+title('Mesh Plot: z = cos(x) * sin(y)');
+
+2. Creating a Shaded Surface Plot:
+
+% Create a shaded surface plot
+surf(x, y, z);
+
+xlabel('x');
+ylabel('y');
+zlabel('z');
+title('Shaded Surface Plot: z = cos(x) * sin(y)');
+
+3. Creating a Shaded Surface Plot with Contour Lines:
+
+% Create a shaded surface plot with contour lines
+surfc(x, y, z);
+
+xlabel('x');
+ylabel('y');
+zlabel('z');
+title('Shaded Surface Plot with Contour Lines: z = cos(x) * sin(y)');
+
+4. Creating an Illuminated Surface Plot:
+
+% Create an illuminated surface plot
+surfl(x, y, z);
+
+xlabel('x');
+ylabel('y');
+zlabel('z');
+title('Illuminated Surface Plot: z = cos(x) * sin(y)');
+
+5. Creating a Cylindrical Plot:
+
+You can also create 3D plots of basic shapes. Here's an example of a cylindrical plot:
+
+% Generate a cylindrical plot
+t = 0:pi/10:2*pi;
+[X, Y, Z] = cylinder(1 + sin(t));
+
+surf(X, Y, Z);
+
+xlabel('x');
+ylabel('y');
+zlabel('z');
+title('Cylindrical Plot');
+
+
+QUIZ
+
