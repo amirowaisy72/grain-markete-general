@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import {
   CButton,
@@ -68,10 +68,16 @@ const Login = () => {
     })
   }
 
+  useEffect(() => {
+    if (localStorage.getItem('token')) {
+      setWait('آپ لاگ ان ہو چکے ہیں۔ ایپلیکیشن کو ریسٹارٹ کریں')
+    }
+  })
+
   const handleLogin = async () => {
     if (validateForm()) {
       try {
-        setWait('آپ کو لاگ ان کیا جا رہا ہے۔  مہربانی انتظار فرمائیں')
+        setWait('آپ کو لاگ ان کیا جا رہا ہے۔ انتظار فرمائیں')
         const response = await loginAdmin(formData.email, formData.password)
 
         if (response.success) {
@@ -79,8 +85,6 @@ const Login = () => {
           localStorage.setItem('token', response.token)
           // Check the user's role
           if (response.user.role === 'Admin') {
-            // Redirect to the admin dashboard
-            // window.location.href = '/admin-dashboard' // Replace with the actual URL of the admin dashboard/
             navigate('/')
           } else if (response.user.role === 'Accountant') {
             // Check if the user is allowed by the admin
@@ -210,6 +214,7 @@ const Login = () => {
                               }}
                               color="link"
                               className="px-0"
+                              style={{ textDecoration: 'none' }}
                             >
                               پاسورڈ بھول گئے؟
                             </CButton>
@@ -298,7 +303,7 @@ const Login = () => {
                   </CForm>
                 </CCardBody>
               </CCard>
-              <CCard className="text-white bg-primary py-5" style={{ width: '44%' }}>
+              <CCard className="text-white bg-primary py-5" style={{ width: '100%' }}>
                 <CCardBody className="text-center">
                   <div>
                     <h2>سائن اپ</h2>

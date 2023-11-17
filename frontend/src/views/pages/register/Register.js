@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import {
   CButton,
   CCard,
@@ -73,6 +73,12 @@ const Register = () => {
       [name]: value,
     })
   }
+
+  useEffect(() => {
+    if (localStorage.getItem('token')) {
+      setWait('آپ لاگ ان ہو چکے ہیں۔ ایپلیکیشن کو ریسٹارٹ کریں')
+    }
+  })
 
   // Step 3: Create an onClick handler for the "Create Account" button
   const handleCreateAccount = async () => {

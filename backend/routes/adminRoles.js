@@ -243,7 +243,6 @@ router.post("/loginAdmin", async (req, res) => {
       user,
     });
   } catch (error) {
-    console.error(error);
     return res.status(500).json({ success: false, message: "سرور میں خرابی" });
   }
 });

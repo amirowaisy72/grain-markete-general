@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">GrainMarket</string>
+    <string name="title_activity_main">GrainMarket</string>
+    <string name="package_name">io.ionic.GrainMarket</string>
+    <string name="custom_url_scheme">io.ionic.GrainMarket</string>
+</resources>

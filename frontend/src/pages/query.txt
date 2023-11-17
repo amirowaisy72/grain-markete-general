@@ -1,1 +1,24 @@
-applyExpensesAuto
+{newUpdate.status && (
+        <div hidden={newUpdate.status ? false : true} className="popup">
+          <div className="popup-content">
+            <span>&times;</span>
+            <p>نئی اپ ڈیٹ</p>
+            <ul>
+              {newUpdate.update &&
+                newUpdate.update.map((item, index) => (
+                  <li key={index}>
+                    <strong>{item.label}:</strong> {item.content}
+                  </li>
+                ))}
+            </ul>
+            <Link to={newUpdate.downloadLink} target="_blank" className="btn btn-success">
+              ڈاؤن لوڈ
+            </Link>
+          </div>
+        </div>
+      )}
+
+
+it is correct for desktop view.
+but for mobile screen, the sides go out of the page
+please fix it and make it responsive

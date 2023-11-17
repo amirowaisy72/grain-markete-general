@@ -198,15 +198,15 @@ router.get("/read/:firmId", async (req, res) => {
 router.get("/getNewUpdate", async (req, res) => {
   try {
     const newUpdate = {
-      status: false,
+      status: true,
       update: [
-        { label: "ورژن", content: "2.0.0" },
-        { label: "ریلیز ڈیٹ", content: "2023-11-16" },
+        { label: "ورژن", content: "1.0.1" },
+        { label: "ریلیز ڈیٹ", content: "2023-11-17" },
         {
           label: "تفصیل",
-          content: "اس اپ ڈیٹ میں نئی خصوصیات اور بہتریاں شامل ہیں۔",
+          content: "کچھ ضروری چیزوں کو اپگریڈ کیا گیا ہے",
         },
-        { label: "مصنف", content: "آپ کا ٹیم" },
+        { label: "پیغام", content: "اپڈیٹ کو ڈاؤن لوڈ کریں" },
       ],
       downloadLink:
         "https://drive.google.com/drive/folders/1K3U3A2Waba5qqlXOeufzthvVkZlEbQ4E?usp=sharing",

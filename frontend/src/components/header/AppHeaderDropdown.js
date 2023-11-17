@@ -28,6 +28,7 @@ import './style.css'
 import contextCreator from 'src/pages/context/contextCreator'
 import moment, { months } from 'moment/moment'
 import { FaPencilAlt, FaTrash } from 'react-icons/fa'
+import './popup.css'
 
 const AppHeaderDropdown = () => {
   const navigate = useNavigate()
@@ -134,14 +135,9 @@ const AppHeaderDropdown = () => {
   }, [])
 
   const [newUpdate, setNewUpdate] = useState({
-    status: true,
-    update: [
-      { label: 'Version', content: '2.0.0' },
-      { label: 'Release Date', content: '2023-11-16' },
-      { label: 'Description', content: 'This update includes new features and improvements.' },
-      { label: 'Author', content: 'Your App Team' },
-    ],
-    downloadLink: 'https://your-download-link.com',
+    status: false,
+    update: [],
+    downloadLink: '',
   })
   useEffect(() => {
     const fetchNewUpdate = async () => {

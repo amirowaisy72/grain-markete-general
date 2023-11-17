@@ -1,0 +1,14 @@
+/* Add this CSS for desktop view */
+.popup {
+    /* Your desktop styles here */
+  }
+  
+  /* Add this CSS for mobile view */
+  @media (max-width: 768px) {
+    .popup {
+      /* Adjust styles for mobile screens */
+      width: 100%; /* or any other suitable width */
+      margin: 0 auto; /* Center the popup on the screen */
+    }
+  }
+  
