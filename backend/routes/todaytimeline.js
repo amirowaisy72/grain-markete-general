@@ -199,6 +199,7 @@ router.get("/getNewUpdate", async (req, res) => {
   try {
     const newUpdate = {
       status: true,
+      version: "1.0.1",
       update: [
         { label: "ورژن", content: "1.0.1" },
         { label: "ریلیز ڈیٹ", content: "2023-11-17" },

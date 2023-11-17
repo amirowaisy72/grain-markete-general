@@ -136,6 +136,8 @@ const AppHeaderDropdown = () => {
 
   const [newUpdate, setNewUpdate] = useState({
     status: false,
+    frontendVersion: '1.0.1',
+    backendVersion: '',
     update: [],
     downloadLink: '',
   })
@@ -145,15 +147,19 @@ const AppHeaderDropdown = () => {
         const response = await getNewUpdate()
 
         if (response.success && response.data.status) {
-          const { update, downloadLink } = response.data
+          const { update, downloadLink, version } = response.data
           setNewUpdate({
             status: true,
+            frontendVersion: '1.0.1',
+            backendVersion: version,
             update: update,
             downloadLink: downloadLink,
           })
         } else {
           setNewUpdate({
             status: false,
+            frontendVersion: '1.0.1',
+            backendVersion: '',
             update: null,
             downloadLink: '',
           })
@@ -507,7 +513,7 @@ const AppHeaderDropdown = () => {
           </div>
         </div>
       )}
-      {newUpdate.status && (
+      {newUpdate.status && newUpdate.frontendVersion !== newUpdate.backendVersion && (
         <div hidden={newUpdate.status ? false : true} className="popup">
           <div className="popup-content">
             <span>&times;</span>
